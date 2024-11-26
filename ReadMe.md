@@ -19,7 +19,7 @@ A ideia principal do Take Eat é simplificar o processo de doação e distribui�
 - **Backend**: NodeJS
 - **Frontend**: React Native
 - **Banco de Dados**: PostgreSQL
-- **ORM**: SQLAlchemy
+- **ORM**: Sequelize
 - **Outras ferramentas**: Docker, JWT para autenticação...
 
 ## Configuração do Projeto
@@ -33,9 +33,10 @@ git clone https://github.com/seu-usuario/take_eat_backend.git
 ```
 
 2. Instale as dependências:
-    ```bash
-    nao sei o comando 
-    ```
+
+   ```bash
+   yarn install
+   ```
 
 3. Execute o aplicativo em seu dispositivo ou emulador:
    ```bash
