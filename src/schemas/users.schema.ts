@@ -1,4 +1,8 @@
 import { z } from "zod";
+import { doadorCreateSchema } from "./doador.schema";
+import { distribuidorCreateSchema } from "./distribuidor.schema";
+import { entregadorCreateSchema } from "./entregador.schema";
+import { apoiadorCreateSchema } from "./apoiador.schema";
 
 const usersSchema = z.object({
   id: z.number(),
@@ -36,9 +40,18 @@ const usersUpdateSchema = usersCreateSchema.partial().omit({
   role: true,
 });
 
+const usersCommonCreateSchema = z.union([
+  usersCreateSchema,
+  doadorCreateSchema,
+  distribuidorCreateSchema,
+  entregadorCreateSchema,
+  apoiadorCreateSchema,
+]);
+
 export {
   usersSchema,
   usersWithoutPassSchema,
   usersCreateSchema,
   usersUpdateSchema,
+  usersCommonCreateSchema,
 };

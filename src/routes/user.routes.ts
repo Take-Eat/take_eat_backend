@@ -11,7 +11,10 @@ import {
 } from "../controllers/user.controllers";
 import ensureDataIsValidMiddleware from "../middlewares/ensureDataIsValid.middleware";
 import ensureExistsMiddleware from "../middlewares/ensureExists.middleware";
-import { usersCreateSchema, usersUpdateSchema } from "../schemas/users.schema";
+import {
+  usersCommonCreateSchema,
+  usersUpdateSchema,
+} from "../schemas/users.schema";
 import User from "../models/User";
 import ensureTokenIsValidMiddleware from "../middlewares/ensureTokenIsValid.middleware";
 
@@ -19,11 +22,7 @@ const userRoutes = Router();
 
 userRoutes.get("", getAllUsersController);
 
-userRoutes.get(
-  "/username/:username",
-  // ensureExistsMiddleware(User, "Usuário"),
-  getUsersController
-); // buscar um usuario por username
+userRoutes.get("/username/:username", getUsersController); // buscar um usuario por username
 // arrumar o middlware de de existencia no banco ou fazer a busca no proprio sevice
 
 userRoutes.get(
@@ -34,7 +33,7 @@ userRoutes.get(
 
 userRoutes.post(
   "",
-  ensureDataIsValidMiddleware(usersCreateSchema),
+  // A validação dos dados estão no service
   createUsersController
 );
 

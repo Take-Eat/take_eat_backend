@@ -5,6 +5,7 @@ import deleteUsersService from "../services/users/deleteUsers.service";
 import getAllUsersService from "../services/users/getAllUsers.service";
 import updateUsersService from "../services/users/updateUsers.service";
 import {
+  iUserCommonCreate,
   iUserCreate,
   iUsersWithoutPass,
   iUserUpdate,
@@ -50,9 +51,8 @@ const createUsersController = async (
   req: Request,
   res: Response
 ): Promise<any> => {
-  const payload: iUserCreate = req.body;
+  const payload = req.body;
   
-
   const createdUser = await createUsersService(payload);
 
   return res.status(201).json(createdUser);
