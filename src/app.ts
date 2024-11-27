@@ -21,6 +21,6 @@ app.use("/users", userRoutes);
 app.use("/login", loginRoutes);
 
 // não colocar coisas a baixo desse "use"
-// app.use(handleError);
+app.use(handleError);
 
 export default app;

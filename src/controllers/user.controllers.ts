@@ -89,7 +89,7 @@ const forgotPasswordController = async (
 
   await forgotPasswordService(email);
 
-  return res.status(200).send("Confere o email, bitch");
+  return res.status(200).send("Sucesso! O link para redefinir a sua senha foi enviado para o seu email.");
 };
 
 const resetPasswordController = async (

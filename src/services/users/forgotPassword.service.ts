@@ -37,9 +37,9 @@ const forgotPasswordService = async (email: string) => {
 	const mailOptions = {
 		to: email,
 		from: process.env.EMAIL,
-		subject: "Recuperação de Senha Mungango",
+		subject: "Recuperação de Senha Take Eat",
 		text:
-			`Você está recebendo este email porque você (ou alguém) solicitou a redefinição de senha da sua conta no Mungango.\n\n` +
+			`Você está recebendo este email porque você (ou alguém) solicitou a redefinição de senha da sua conta no Take Eat.\n\n` +
 			`Por favor, clique no seguinte link ou cole no seu navegador para concluir o processo:\n\n` +
 			`${resetLink}\n\n` +
 			`Se você não solicitou isso, por favor ignore este email e sua senha permanecerá inalterada.\n`,
