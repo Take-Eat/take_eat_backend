@@ -15,6 +15,7 @@ Extrato.init(
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
     totalDoado: {
       type: DataTypes.DECIMAL(10, 2),
+      allowNull: false,
     },
     idApoiador: {
       type: DataTypes.INTEGER,
@@ -29,7 +30,7 @@ Extrato.init(
 );
 
 // Relações de um pra muitos
-Extrato.belongsTo(Apoiador, { foreignKey: "idApoiador" });
+Extrato.belongsTo(Apoiador, { onDelete: "cascade", foreignKey: "idApoiador" });
 Apoiador.hasMany(Extrato, { foreignKey: "idApoiador" });
 
 export default Extrato;
