@@ -12,7 +12,7 @@ class Distribuidor extends Model<iDistribuidor, iDistribuidorCreate> {
   declare razaoSocial: string;
   declare cnpj: string;
   declare endereco: string;
-  declare idUsuario: string;
+  declare idUsuario: number;
 }
 
 Distribuidor.init(

@@ -11,7 +11,7 @@ class Doador extends Model<iDoador, iDoadorCreate> {
   declare endereco: string;
   declare ramoAlimenticio: string;
   declare horarioRetirada: string;
-  declare idUsuario: string;
+  declare idUsuario: number;
 }
 
 Doador.init(

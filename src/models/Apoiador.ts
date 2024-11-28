@@ -12,7 +12,7 @@ class Apoiador extends Model<iApoiador, iApoiadorCreate> {
   declare mungango: string;
   declare instagram: string;
   declare x: string;
-  declare idUsuario: string;
+  declare idUsuario: number;
 }
 
 Apoiador.init(

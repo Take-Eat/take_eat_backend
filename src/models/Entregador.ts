@@ -13,7 +13,7 @@ class Entregador extends Model<iEntregador, iEntregadorCreate> {
   declare cpf: string;
   declare cnh: string;
   declare endereco: string;
-  declare idUsuario: string;
+  declare idUsuario: number;
 }
 
 Entregador.init(
