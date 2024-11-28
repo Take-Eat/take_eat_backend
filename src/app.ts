@@ -20,6 +20,7 @@ app.get("/", (req, res) => {
 app.use("/users", userRoutes);
 app.use("/login", loginRoutes);
 
+
 // não colocar coisas a baixo desse "use"
 app.use(handleError);
 
