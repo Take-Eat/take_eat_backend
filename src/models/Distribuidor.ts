@@ -51,6 +51,6 @@ Distribuidor.init(
 
 // Relações de um pra muitos
 Distribuidor.belongsTo(User, { foreignKey: "idUsuario" });
-User.hasMany(Distribuidor, { foreignKey: "idUsuario" });
+User.hasOne(Distribuidor, { foreignKey: "idUsuario" });
 
 export default Distribuidor;

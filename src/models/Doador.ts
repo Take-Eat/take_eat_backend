@@ -64,6 +64,6 @@ Doador.init(
 
 // Relações de um pra muitos
 Doador.belongsTo(User, { foreignKey: "idUsuario" });
-User.hasMany(Doador, { foreignKey: "idUsuario" });
+User.hasOne(Doador, { foreignKey: "idUsuario" });
 
 export default Doador;

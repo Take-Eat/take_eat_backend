@@ -72,6 +72,6 @@ Apoiador.init(
 
 // Relações de um pra muitos
 Apoiador.belongsTo(User, { foreignKey: "idUsuario" });
-User.hasMany(Apoiador, { foreignKey: "idUsuario" });
+User.hasOne(Apoiador, { foreignKey: "idUsuario" });
 
 export default Apoiador;
