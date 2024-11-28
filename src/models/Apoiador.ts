@@ -71,7 +71,7 @@ Apoiador.init(
 );
 
 // Relações de um pra muitos
-Apoiador.belongsTo(User, { foreignKey: "idUsuario" });
+Apoiador.belongsTo(User, { onDelete: "cascade", foreignKey: "idUsuario" });
 User.hasOne(Apoiador, { foreignKey: "idUsuario" });
 
 export default Apoiador;

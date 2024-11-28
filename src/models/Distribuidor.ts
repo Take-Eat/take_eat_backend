@@ -50,7 +50,7 @@ Distribuidor.init(
 );
 
 // Relações de um pra muitos
-Distribuidor.belongsTo(User, { foreignKey: "idUsuario" });
+Distribuidor.belongsTo(User, { onDelete: "cascade", foreignKey: "idUsuario" });
 User.hasOne(Distribuidor, { foreignKey: "idUsuario" });
 
 export default Distribuidor;

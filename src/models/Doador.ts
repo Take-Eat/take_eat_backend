@@ -63,7 +63,7 @@ Doador.init(
 );
 
 // Relações de um pra muitos
-Doador.belongsTo(User, { foreignKey: "idUsuario" });
+Doador.belongsTo(User, { onDelete: "cascade", foreignKey: "idUsuario" });
 User.hasOne(Doador, { foreignKey: "idUsuario" });
 
 export default Doador;
