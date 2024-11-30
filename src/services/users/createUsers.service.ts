@@ -5,6 +5,7 @@ import { iDoadorCreate } from "../../interfaces/doador.interface";
 import { iEntregadorCreate } from "../../interfaces/entregador.interface";
 import {
   iUserCommonCreate,
+  iUserCreate,
   iUsersWithoutPass,
 } from "../../interfaces/user.interface";
 import Apoiador from "../../models/Apoiador";
@@ -12,57 +13,24 @@ import Distribuidor from "../../models/Distribuidor";
 import Doador from "../../models/Doador";
 import Entregador from "../../models/Entregador";
 import User from "../../models/User";
-import { apoiadorCreateSchema } from "../../schemas/apoiador.schema";
-import { distribuidorCreateSchema } from "../../schemas/distribuidor.schema";
-import { doadorCreateSchema } from "../../schemas/doador.schema";
-import { entregadorCreateSchema } from "../../schemas/entregador.schema";
+import {
+  apoiadorCreateWithoutIdUsuarioSchema,
+} from "../../schemas/apoiador.schema";
+import {
+  distribuidorCreateWithoutIdUsuarioSchema,
+} from "../../schemas/distribuidor.schema";
+import {
+  doadorCreateWithoutIdUsuarioSchema,
+} from "../../schemas/doador.schema";
+import {
+  entregadorCreateWithoutIdUsuarioSchema,
+} from "../../schemas/entregador.schema";
 import {
   usersWithoutPassSchema,
   usersCreateSchema,
 } from "../../schemas/users.schema";
 
-// Serviços para criação nas tabelas específicas
-const createDoador = async (payload: iDoadorCreate, idUsuario: number) => {
-  const parsedDoador = doadorCreateSchema.parse({ ...payload, idUsuario });
-
-  return await Doador.create(parsedDoador);
-};
-
-const createDistribuidor = async (
-  payload: iDistribuidorCreate,
-  idUsuario: number
-) => {
-  const parsedDistribuidor = distribuidorCreateSchema.parse({
-    ...payload,
-    idUsuario,
-  });
-
-  return await Distribuidor.create(parsedDistribuidor);
-};
-
-const createEntregador = async (
-  payload: iEntregadorCreate,
-  idUsuario: number
-) => {
-  const parsedEntregador = entregadorCreateSchema.parse({
-    ...payload,
-    idUsuario,
-  });
-
-  return await Entregador.create(parsedEntregador);
-};
-
-const createApoiador = async (payload: iApoiadorCreate, idUsuario: number) => {
-  const parsedApoiador = apoiadorCreateSchema.parse({ ...payload, idUsuario });
-
-  return await Apoiador.create(parsedApoiador);
-};
-
-// Serviço principal
-const createUsersService = async (
-  payload: any // Recebe o payload bruto
-): Promise<iUsersWithoutPass> => {
-  // Valida os dados comuns a todos os usuários
+const createUser = async (payload: any) => {
   const parsedUser = usersCreateSchema.parse(payload);
 
   // Verifica se o e-mail já existe
@@ -71,32 +39,81 @@ const createUsersService = async (
     throw new AppError("Email já existe", 409);
   }
 
-  // Cria o registro principal na tabela User
   const createdUser = await User.create(parsedUser);
 
+  return usersWithoutPassSchema.parse(createdUser);
+};
+
+// Serviços para criação nas tabelas específicas
+const createDoador = async (payload: any) => {
+  const parsedDoador = doadorCreateWithoutIdUsuarioSchema.parse(payload);
+
+  const createdUserWithoutPass = await createUser(payload);
+
+  await Doador.create({
+    ...parsedDoador,
+    idUsuario: createdUserWithoutPass.id,
+  });
+  return createdUserWithoutPass;
+};
+
+const createDistribuidor = async (payload: any) => {
+  const parsedDistribuidor =
+    distribuidorCreateWithoutIdUsuarioSchema.parse(payload);
+
+  const createdUserWithoutPass = await createUser(payload);
+
+  await Distribuidor.create({ ...parsedDistribuidor, idUsuario: payload });
+  return createdUserWithoutPass;
+};
+
+const createEntregador = async (payload: any) => {
+  const parsedEntregador =
+    entregadorCreateWithoutIdUsuarioSchema.parse(payload);
+
+  const createdUserWithoutPass = await createUser(payload);
+
+  await Entregador.create({
+    ...parsedEntregador,
+    idUsuario: createdUserWithoutPass.id,
+  });
+  return createdUserWithoutPass;
+};
+
+const createApoiador = async (payload: any) => {
+  const parsedApoiador = apoiadorCreateWithoutIdUsuarioSchema.parse(payload);
+
+  const createdUserWithoutPass = await createUser(payload);
+
+  await Apoiador.create({
+    ...parsedApoiador,
+    idUsuario: createdUserWithoutPass.id,
+  });
+  return createdUserWithoutPass;
+};
+
+// Serviço principal
+const createUsersService = async (
+  payload: any // Recebe o payload bruto
+): Promise<iUsersWithoutPass> => {
+  // Valida os dados comuns a todos os usuários
+  if (!payload.role) {
+    throw new AppError("Role inválida!", 400);
+  }
+
   // Processa o restante dos dados de acordo com o role
-  switch (createdUser.role) {
+  switch (payload.role) {
     case "doador":
-      await createDoador(payload, createdUser.id);
-      break;
+      return await createDoador(payload);
     case "distribuidor":
-      await createDistribuidor(payload, createdUser.id);
-      break;
+      return await createDistribuidor(payload);
     case "entregador":
-      await createEntregador(payload, createdUser.id);
-      break;
+      return await createEntregador(payload);
     case "apoiador":
-      await createApoiador(payload, createdUser.id);
-      break;
+      return await createApoiador(payload);
     default:
       throw new AppError("Role inválido", 400);
   }
-
-  // Retorna o usuário criado sem a senha
-  const userWithoutPass: iUsersWithoutPass =
-    usersWithoutPassSchema.parse(createdUser);
-
-  return userWithoutPass;
 };
 
 export default createUsersService;

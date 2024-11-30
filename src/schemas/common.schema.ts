@@ -10,4 +10,8 @@ const commonSchema = z.object({
   updatedAt: z.date(),
 });
 
-export { commonSchema };
+const commonCreateWithoutIdUsuarioSchema = commonSchema.omit({
+  idUsuario: true,
+});
+
+export { commonSchema, commonCreateWithoutIdUsuarioSchema };
