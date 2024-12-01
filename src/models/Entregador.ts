@@ -54,7 +54,7 @@ Entregador.init(
 );
 
 // Relações de um pra muitos
-Entregador.belongsTo(User, { foreignKey: "idUsuario" });
+Entregador.belongsTo(User, { onDelete: "cascade", foreignKey: "idUsuario" });
 User.hasOne(Entregador, { foreignKey: "idUsuario" });
 
 export default Entregador;

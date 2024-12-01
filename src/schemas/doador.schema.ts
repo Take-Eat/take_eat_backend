@@ -1,10 +1,15 @@
 import { z } from "zod";
-import { commonSchema } from "./common.schema";
+import {
+  commonCreateWithoutIdUsuarioSchema,
+  commonSchema,
+} from "./common.schema";
 
-const doadorSchema = commonSchema.extend({
+const dadosExtraSchema = z.object({
   ramoAlimenticio: z.string().min(3).max(55),
   horarioRetirada: z.string().min(3).max(255),
 });
+
+const doadorSchema = commonSchema.merge(dadosExtraSchema);
 
 const doadorCreateSchema = doadorSchema.omit({
   id: true,
@@ -12,6 +17,19 @@ const doadorCreateSchema = doadorSchema.omit({
   updatedAt: true,
 });
 
+const doadorCreateWithoutIdUsuarioSchema = commonCreateWithoutIdUsuarioSchema
+  .merge(dadosExtraSchema)
+  .omit({
+    id: true,
+    createdAt: true,
+    updatedAt: true,
+  });
+
 const doadorUpdateSchema = doadorCreateSchema.partial();
 
-export { doadorSchema, doadorCreateSchema, doadorUpdateSchema };
+export {
+  doadorSchema,
+  doadorCreateSchema,
+  doadorUpdateSchema,
+  doadorCreateWithoutIdUsuarioSchema,
+};

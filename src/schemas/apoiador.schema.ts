@@ -1,11 +1,16 @@
 import { z } from "zod";
-import { commonSchema } from "./common.schema";
+import {
+  commonCreateWithoutIdUsuarioSchema,
+  commonSchema,
+} from "./common.schema";
 
-const apoiadorSchema = commonSchema.extend({
-  mungango: z.string().min(3).max(55).nullable(),
-  instagram: z.string().min(3).max(55).nullable(),
-  x: z.string().min(3).max(55).nullable(),
+const dadosExtrasSchema = z.object({
+  mungango: z.string().min(3).max(55).nullable().optional(),
+  instagram: z.string().min(3).max(55).nullable().optional(),
+  x: z.string().min(3).max(55).nullable().optional(),
 });
+
+const apoiadorSchema = commonSchema.merge(dadosExtrasSchema);
 
 const apoiadorCreateSchema = apoiadorSchema.omit({
   id: true,
@@ -13,6 +18,19 @@ const apoiadorCreateSchema = apoiadorSchema.omit({
   updatedAt: true,
 });
 
+const apoiadorCreateWithoutIdUsuarioSchema = commonCreateWithoutIdUsuarioSchema
+  .merge(dadosExtrasSchema)
+  .omit({
+    id: true,
+    createdAt: true,
+    updatedAt: true,
+  });
+
 const apoiadorUpdateSchema = apoiadorCreateSchema.partial();
 
-export { apoiadorSchema, apoiadorCreateSchema, apoiadorUpdateSchema };
+export {
+  apoiadorSchema,
+  apoiadorCreateSchema,
+  apoiadorUpdateSchema,
+  apoiadorCreateWithoutIdUsuarioSchema,
+};
