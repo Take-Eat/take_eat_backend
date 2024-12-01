@@ -6,14 +6,15 @@ import {
 } from "../../interfaces/apoiador.interface";
 import Apoiador from "../../models/Apoiador";
 import { apoiadorSchema } from "../../schemas/apoiador.schema";
+import getApoiadorIdService from "./getApoiadorId.service";
 
 const updateApoiadorService = async (
-  idUsuario: number,
+  id: number,
   payload: iApoiadorUpdate
 ): Promise<iApoiador> => {
   if (payload.cnpj) {
     const retrivedApoiador = await Apoiador.findOne({
-      where: { cnpj: payload.cnpj, idUsuario: { [Op.ne]: idUsuario } },
+      where: { cnpj: payload.cnpj, id: { [Op.ne]: id } },
     });
 
     if (retrivedApoiador) {
@@ -22,12 +23,10 @@ const updateApoiadorService = async (
   }
 
   await Apoiador.update(payload, {
-    where: { idUsuario },
+    where: { id },
   });
 
-  const updatedApoiador = Apoiador.findOne({ where: { idUsuario } });
-
-  return apoiadorSchema.parse(updatedApoiador);
+  return await getApoiadorIdService(id);
 };
 
 export default updateApoiadorService;

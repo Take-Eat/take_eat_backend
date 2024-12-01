@@ -6,6 +6,7 @@ import userRoutes from "./routes/user.routes";
 import loginRoutes from "./routes/login.routes";
 
 import { handleError } from "./errors";
+import apoidorRoutes from "./routes/apoiador.routes";
 
 const app: Application = express();
 app.use(json());
@@ -19,7 +20,7 @@ app.get("/", (req, res) => {
 
 app.use("/users", userRoutes);
 app.use("/login", loginRoutes);
-
+app.use("/apoiador", apoidorRoutes);
 
 // não colocar coisas a baixo desse "use"
 app.use(handleError);

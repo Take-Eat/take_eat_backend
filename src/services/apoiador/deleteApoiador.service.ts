@@ -1,7 +1,7 @@
-import Apoiador from "../../models/Apoiador";
+import deleteUsersService from "../users/deleteUsers.service";
 
 const deleteApoiadorService = async (id: number) => {
-  await Apoiador.destroy({ where: { id } });
+  await deleteUsersService(id);
 };
 
 export default deleteApoiadorService;

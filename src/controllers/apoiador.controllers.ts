@@ -11,6 +11,7 @@ const getApoiadorIdController = async (
   res: Response
 ): Promise<any> => {
   const id = Number(req.params.id);
+
   const retrivedApoiador = await getApoiadorIdService(id);
 
   return res.status(200).json(retrivedApoiador);

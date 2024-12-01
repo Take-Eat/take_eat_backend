@@ -1,52 +1,54 @@
-// import { Router } from "express";
-// import {
-//   createUsersController,
-//   deleteUsersController,
-//   forgotPasswordController,
-//   getAllUsersController,
-//   getUserIdController,
-//   getUsersController,
-//   resetPasswordController,
-//   updateUsersController,
-// } from "../controllers/user.controllers";
-// import ensureDataIsValidMiddleware from "../middlewares/ensureDataIsValid.middleware";
-// import ensureExistsMiddleware from "../middlewares/ensureExists.middleware";
-// import {
+import { Router } from "express";
+import {
+  createUsersController,
+  deleteUsersController,
+  forgotPasswordController,
+  getAllUsersController,
+  getUserIdController,
+  getUsersController,
+  resetPasswordController,
+  updateUsersController,
+} from "../controllers/user.controllers";
+import ensureDataIsValidMiddleware from "../middlewares/ensureDataIsValid.middleware";
+import ensureExistsMiddleware from "../middlewares/ensureExists.middleware";
+import { usersUpdateSchema } from "../schemas/users.schema";
+import User from "../models/User";
+import ensureTokenIsValidMiddleware from "../middlewares/ensureTokenIsValid.middleware";
+import {
+  apoiadorCreateSchema,
+  apoiadorUpdateSchema,
+} from "../schemas/apoiador.schema";
+import {
+  deleteApoiadorController,
+  getAllApoiadorController,
+  getApoiadorIdController,
+  updateApoiadorController,
+} from "../controllers/apoiador.controllers";
+import Apoiador from "../models/Apoiador";
 
-//   usersUpdateSchema,
-// } from "../schemas/users.schema";
-// import User from "../models/User";
-// import ensureTokenIsValidMiddleware from "../middlewares/ensureTokenIsValid.middleware";
-// import { apoiadorCreateSchema } from "../schemas/apoiador.schema";
+const apoidorRoutes = Router();
 
-// const apoidorRoutes = Router();
+apoidorRoutes.get("", getAllApoiadorController, ensureTokenIsValidMiddleware); // Pegar todos apoiadores
 
-// apoidorRoutes.get("", getAllUsersController);
+apoidorRoutes.get(
+  "/:id",
+  ensureExistsMiddleware(Apoiador, "Apoiador"),
+  ensureTokenIsValidMiddleware,
+  getApoiadorIdController
+); // buscar um apoiador por id
 
-// apoidorRoutes.get(
-//   "/:id",
-//   ensureExistsMiddleware(User, "Usuário"),
-//   getUserIdController
-// ); // buscar um apoiador por id
+apoidorRoutes.patch(
+  "/:id",
+  ensureExistsMiddleware(Apoiador, "Apoiador"),
+  ensureDataIsValidMiddleware(apoiadorUpdateSchema),
+  ensureTokenIsValidMiddleware,
+  updateApoiadorController
+); // Update em apoiador
 
-// apoidorRoutes.post(
-//   "",
-//   ensureDataIsValidMiddleware(apoiadorCreateSchema)
-//   createUsersController
-// );
+apoidorRoutes.delete(
+  "/:id",
+  ensureExistsMiddleware(User, "Usuário"), // a validação fica com a tabela de usuario, porque o id que vem do parametro é o do usuário
+  deleteApoiadorController
+); // Deletar apoiador
 
-// apoidorRoutes.patch(
-//   "/:id",
-//   ensureExistsMiddleware(User, "Usuário"),
-//   ensureDataIsValidMiddleware(usersUpdateSchema),
-//   ensureTokenIsValidMiddleware,
-//   updateUsersController
-// );
-
-// apoidorRoutes.delete(
-//   "/:id",
-//   ensureExistsMiddleware(User, "Usuário"),
-//   deleteUsersController
-// );
-
-// export default apoidorRoutes;
+export default apoidorRoutes;
