@@ -6,9 +6,3 @@ type iExtratoCreate = z.infer<typeof extratoCreateSchema>;
 type iExtratoUpdate = Partial<Pick<iExtratoCreate, keyof iExtratoCreate>>;
 
 export { iExtrato, iExtratoCreate, iExtratoUpdate };
-
-//  id: number;
-//  totalDoado: number;
-//  idApoiador: number;
-//  createdAt: Date;
-//  updatedAt: Date;
