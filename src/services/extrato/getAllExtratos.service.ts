@@ -8,7 +8,7 @@ const getAllExtrato = async (idApoiador: number): Promise<iExtrato[]> => {
     where: { idApoiador },
   });
 
-  if (retrivedExtratos) {
+  if (!retrivedExtratos) {
     throw new AppError("Não foi possível encontrar o extrato!", 404);
   }
 
