@@ -8,7 +8,7 @@ class Produto extends Model<iProduto, iProdutoCreate> {
   declare name: string;
   declare tipo: string;
   declare quantidade: number;
-  declare tempoDisponivel: Date;
+  declare tempoDisponivel: string;
   declare idDoador: number;
 }
 

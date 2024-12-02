@@ -5,7 +5,7 @@ const produtoSchema = z.object({
   name: z.string().min(3).max(55),
   tipo: z.string().min(3).max(55),
   quantidade: z.number(),
-  tempoDisponivel: z.date(),
+  tempoDisponivel: z.string().date("Tempo disponível inválido!"),
   idDoador: z.number(),
   createdAt: z.date(),
   updatedAt: z.date(),
