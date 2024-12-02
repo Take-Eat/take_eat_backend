@@ -9,7 +9,7 @@ const createExtratoService = async (
 ): Promise<iExtrato> => {
   const createdExtrato = await Extrato.create(payload);
 
-  if (createdExtrato) {
+  if (!createdExtrato) {
     throw new AppError("Não foi possível criar o extrato", 409);
   }
 

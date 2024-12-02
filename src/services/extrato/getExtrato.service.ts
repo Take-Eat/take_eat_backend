@@ -8,7 +8,7 @@ const getExtratoIdService = async (id: number): Promise<iExtrato> => {
     where: { id },
   });
 
-  if (retrivedExtrato) {
+  if (!retrivedExtrato) {
     throw new AppError("Não foi possível encontrar o extrato!", 404);
   }
 

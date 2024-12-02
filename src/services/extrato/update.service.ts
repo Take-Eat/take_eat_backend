@@ -12,13 +12,13 @@ const updateExtratoService = async (
   id: number,
   payload: iExtratoUpdate
 ): Promise<iExtrato> => {
-  const createdExtrato = await Extrato.update(payload, { where: { id } });
+  const updatedExtrato = await Extrato.update(payload, { where: { id } });
 
-  if (createdExtrato) {
+  if (!updatedExtrato) {
     throw new AppError("Não foi possível criar o extrato", 409);
   }
 
-  const parsedExtrato = extratoSchema.parse(createdExtrato);
+  const parsedExtrato = extratoSchema.parse(updatedExtrato);
   return parsedExtrato;
 };
 
