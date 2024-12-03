@@ -8,6 +8,7 @@ import loginRoutes from "./routes/login.routes";
 import { handleError } from "./errors";
 import apoidorRoutes from "./routes/apoiador.routes";
 import produtoRoutes from "./routes/produto.routes";
+import extratoRoutes from "./routes/extrato.routes";
 
 const app: Application = express();
 app.use(json());
@@ -23,6 +24,7 @@ app.use("/users", userRoutes);
 app.use("/login", loginRoutes);
 app.use("/apoiador", apoidorRoutes);
 app.use("/produto", produtoRoutes);
+app.use("/extrato", extratoRoutes)
 
 // não colocar coisas a baixo desse "use"
 app.use(handleError);

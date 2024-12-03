@@ -14,8 +14,11 @@ Extrato.init(
   {
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
     totalDoado: {
-      type: DataTypes.DECIMAL(10, 2),
+      type: DataTypes.FLOAT,
       allowNull: false,
+      validate: {
+        isNumeric: true,
+      },
     },
     idApoiador: {
       type: DataTypes.INTEGER,
