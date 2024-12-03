@@ -1,21 +1,4 @@
-import { z } from "zod";
 import { Request, Response } from "express";
-import createUsersService from "../services/users/createUsers.service";
-import deleteUsersService from "../services/users/deleteUsers.service";
-import getAllUsersService from "../services/users/getAllUsers.service";
-import updateUsersService from "../services/users/updateUsers.service";
-import {
-  iUserCommonCreate,
-  iUserCreate,
-  iUsersWithoutPass,
-  iUserUpdate,
-} from "../interfaces/user.interface";
-
-import getUsersIdService from "../services/users/getUsersId.service";
-
-import forgotPasswordService from "../services/users/forgotPassword.service";
-import resetPasswordService from "../services/users/resetPassword.service";
-import getUsersUsernameService from "../services/users/getUsersUsername.service";
 import getProdutoIdService from "../services/produto/getProduto.service";
 import getAllProdutosDoador from "../services/produto/getAllProdutosDoador.service";
 import createProdutoService from "../services/produto/create.service";
