@@ -18,7 +18,9 @@ const updateProdutoService = async (
     throw new AppError("Não foi possível atualizar o produto", 409);
   }
 
-  const parsedProduto = produtoSchema.parse(updatedProduto);
+  const retrivedProduto = await Produto.findOne({ where: { id } });
+
+  const parsedProduto = produtoSchema.parse(retrivedProduto);
   return parsedProduto;
 };
 
