@@ -46,7 +46,7 @@ const updateExtratoService = async (
   }
 
   const retrivedExtrato = await Extrato.findOne({ where: { id } });
-  
+
   const parsedExtrato = extratoSchema.parse(retrivedExtrato);
   return parsedExtrato;
 };
