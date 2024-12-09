@@ -4,8 +4,7 @@ import { iDistribuidorCreate } from "../../interfaces/distribuidor.interface";
 import { iDoadorCreate } from "../../interfaces/doador.interface";
 import { iEntregadorCreate } from "../../interfaces/entregador.interface";
 import {
-  iUserCommonCreate,
-  iUserCreate,
+
   iUsersWithoutPass,
 } from "../../interfaces/user.interface";
 import Apoiador from "../../models/Apoiador";
