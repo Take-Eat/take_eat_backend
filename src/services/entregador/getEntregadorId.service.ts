@@ -30,7 +30,7 @@ import { entregadorSchema } from "../../schemas/entregador.schema";
 
 const getEntregadorIdService = async (id: number): Promise<iEntregador> => {
   const retrivedEntregador = await Entregador.findOne({
-    where: { id },
+    where: { id, deletedAt: null },
   });
 
   if (!retrivedEntregador) {

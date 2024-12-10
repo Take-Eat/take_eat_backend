@@ -13,6 +13,7 @@ class Distribuidor extends Model<iDistribuidor, iDistribuidorCreate> {
   declare cnpj: string;
   declare endereco: string;
   declare idUsuario: number;
+  declare deletedAt: Date | null;
 }
 
 Distribuidor.init(
@@ -45,6 +46,11 @@ Distribuidor.init(
       type: DataTypes.DATE,
     },
     updatedAt: { type: DataTypes.DATE },
+    deletedAt: {
+      type: DataTypes.DATE,
+      allowNull: true, // Permitir valor nulo
+      defaultValue: null, // Valor padrão é null
+    },
   },
   { sequelize, modelName: "Distribuidor" }
 );

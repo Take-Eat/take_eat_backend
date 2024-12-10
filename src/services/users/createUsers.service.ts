@@ -3,27 +3,16 @@ import { iApoiadorCreate } from "../../interfaces/apoiador.interface";
 import { iDistribuidorCreate } from "../../interfaces/distribuidor.interface";
 import { iDoadorCreate } from "../../interfaces/doador.interface";
 import { iEntregadorCreate } from "../../interfaces/entregador.interface";
-import {
-
-  iUsersWithoutPass,
-} from "../../interfaces/user.interface";
+import { iUsersWithoutPass } from "../../interfaces/user.interface";
 import Apoiador from "../../models/Apoiador";
 import Distribuidor from "../../models/Distribuidor";
 import Doador from "../../models/Doador";
 import Entregador from "../../models/Entregador";
 import User from "../../models/User";
-import {
-  apoiadorCreateWithoutIdUsuarioSchema,
-} from "../../schemas/apoiador.schema";
-import {
-  distribuidorCreateWithoutIdUsuarioSchema,
-} from "../../schemas/distribuidor.schema";
-import {
-  doadorCreateWithoutIdUsuarioSchema,
-} from "../../schemas/doador.schema";
-import {
-  entregadorCreateWithoutIdUsuarioSchema,
-} from "../../schemas/entregador.schema";
+import { apoiadorCreateWithoutIdUsuarioSchema } from "../../schemas/apoiador.schema";
+import { distribuidorCreateWithoutIdUsuarioSchema } from "../../schemas/distribuidor.schema";
+import { doadorCreateWithoutIdUsuarioSchema } from "../../schemas/doador.schema";
+import { entregadorCreateWithoutIdUsuarioSchema } from "../../schemas/entregador.schema";
 import {
   usersWithoutPassSchema,
   usersCreateSchema,
