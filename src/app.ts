@@ -10,6 +10,7 @@ import apoidorRoutes from "./routes/apoiador.routes";
 import produtoRoutes from "./routes/produto.routes";
 import extratoRoutes from "./routes/extrato.routes";
 import doadorRoutes from "./routes/doador.routes";
+import entregadorRoutes from "./routes/entregador.routes";
 
 const app: Application = express();
 app.use(json());
@@ -25,6 +26,7 @@ app.use("/login", loginRoutes);
 app.use("/users", userRoutes);
 app.use("/apoiador", apoidorRoutes);
 app.use("/doador", doadorRoutes);
+app.use("/entregador", entregadorRoutes)
 app.use("/produto", produtoRoutes);
 app.use("/extrato", extratoRoutes);
 

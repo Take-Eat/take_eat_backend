@@ -1,6 +1,6 @@
 import { AppError } from "../../errors";
 import { iEntregador } from "../../interfaces/entregador.interface";
-import Doador from "../../models/Doador";
+import Entregador from "../../models/Entregador";
 import { entregadorSchema } from "../../schemas/entregador.schema";
 
 /**
@@ -36,7 +36,7 @@ const getEntregadoresService = async (
 ): Promise<iEntregador[]> => {
   const offset = (page - 1) * limit;
 
-  const retrivedEntregadores = await Doador.findAll({
+  const retrivedEntregadores = await Entregador.findAll({
     offset,
     limit,
   });

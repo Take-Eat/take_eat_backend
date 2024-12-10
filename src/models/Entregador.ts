@@ -9,7 +9,6 @@ import User from "./User";
 
 class Entregador extends Model<iEntregador, iEntregadorCreate> {
   declare id: number;
-  declare nome: string;
   declare cpf: string;
   declare cnh: string;
   declare endereco: string;
@@ -19,13 +18,6 @@ class Entregador extends Model<iEntregador, iEntregadorCreate> {
 Entregador.init(
   {
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-    nome: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        len: [3, 255], // mínimo de 3 caracteres, máximo de 255 caracteres
-      },
-    },
     cpf: {
       type: DataTypes.STRING(11),
       unique: true,
