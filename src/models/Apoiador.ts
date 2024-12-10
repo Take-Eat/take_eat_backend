@@ -13,6 +13,7 @@ class Apoiador extends Model<iApoiador, iApoiadorCreate> {
   declare instagram: string;
   declare x: string;
   declare idUsuario: number;
+  declare deletedAt: Date | null;
 }
 
 Apoiador.init(
@@ -66,6 +67,11 @@ Apoiador.init(
       type: DataTypes.DATE,
     },
     updatedAt: { type: DataTypes.DATE },
+    deletedAt: {
+      type: DataTypes.DATE,
+      allowNull: true, // Permitir valor nulo
+      defaultValue: null, // Valor padrão é null
+    },
   },
   { sequelize, modelName: "Apoiador" }
 );

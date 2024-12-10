@@ -8,6 +8,7 @@ const commonSchema = z.object({
   idUsuario: z.number(),
   createdAt: z.date(),
   updatedAt: z.date(),
+  deletedAt: z.date().nullable(),
 });
 
 const commonCreateWithoutIdUsuarioSchema = commonSchema.omit({

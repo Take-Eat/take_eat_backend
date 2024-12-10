@@ -12,6 +12,7 @@ class Doador extends Model<iDoador, iDoadorCreate> {
   declare ramoAlimenticio: string;
   declare horarioRetirada: string;
   declare idUsuario: number;
+  declare deletedAt: Date | null;
 }
 
 Doador.init(
@@ -58,6 +59,11 @@ Doador.init(
       type: DataTypes.DATE,
     },
     updatedAt: { type: DataTypes.DATE },
+    deletedAt: {
+      type: DataTypes.DATE,
+      allowNull: true, // Permitir valor nulo
+      defaultValue: null, // Valor padrão é null
+    },
   },
   { sequelize, modelName: "Doador" }
 );
