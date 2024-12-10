@@ -47,7 +47,7 @@ const updateDoadorService = async (
   }
 
   await Doador.update(payload, {
-    where: { id },
+    where: { id, deletedAt: null },
   });
 
   return await getDoadorIdService(id);

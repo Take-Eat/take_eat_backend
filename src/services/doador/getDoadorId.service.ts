@@ -31,7 +31,7 @@ import { doadorSchema } from "../../schemas/doador.schema";
 
 const getDoadorIdService = async (id: number): Promise<iDoador> => {
   const retrivedDoador = await Doador.findOne({
-    where: { id },
+    where: { id, deletedAt: null },
   });
 
   if (!retrivedDoador) {

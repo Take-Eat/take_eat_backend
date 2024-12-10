@@ -40,6 +40,7 @@ const getDoadoresService = async (
   const retrivedDoadores = await Doador.findAll({
     offset,
     limit,
+    where: { deletedAt: null },
   });
 
   if (!retrivedDoadores) {
