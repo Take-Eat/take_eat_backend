@@ -91,11 +91,11 @@ const getAllDistribuidorController = async (
  * // PATCH /distribuidor/10
  * // Body:
  * {
+    razaoSocial?: string;
+    cnpj?: string;
     endereco?: string;
     idUsuario?: number;
-    nome?: string;
-    cpf?: string;
-    cnh?: string;
+    deletedAt?: Date | null;
  * }
  * // Response:
  * {
@@ -106,7 +106,7 @@ const getAllDistribuidorController = async (
     idUsuario: number;
     createdAt: Date;
     updatedAt: Date;
-    deletedAt: Date | null;
+    deletedAt: Date | null
  * }
  */
 const updateDistribuidorController = async (
