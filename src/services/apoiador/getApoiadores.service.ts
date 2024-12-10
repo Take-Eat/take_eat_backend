@@ -12,6 +12,7 @@ const getApoiadoresService = async (
   const retrivedApoiadores = await Apoiador.findAll({
     offset,
     limit,
+    where: { deletedAt: null },
   });
 
   if (!retrivedApoiadores) {

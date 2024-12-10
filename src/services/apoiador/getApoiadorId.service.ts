@@ -5,7 +5,7 @@ import { apoiadorSchema } from "../../schemas/apoiador.schema";
 
 const getApoiadorIdService = async (id: number): Promise<iApoiador> => {
   const retrivedApoiador = await Apoiador.findOne({
-    where: { id },
+    where: { id, deletedAt: null },
   });
 
   if (!retrivedApoiador) {
