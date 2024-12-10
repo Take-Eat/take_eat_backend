@@ -51,7 +51,10 @@ const createDistribuidor = async (payload: any) => {
 
   const createdUserWithoutPass = await createUser(payload);
 
-  await Distribuidor.create({ ...parsedDistribuidor, idUsuario: payload });
+  await Distribuidor.create({
+    ...parsedDistribuidor,
+    idUsuario: createdUserWithoutPass.id,
+  });
   return createdUserWithoutPass;
 };
 
