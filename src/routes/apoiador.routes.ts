@@ -47,7 +47,7 @@ apoidorRoutes.patch(
 
 apoidorRoutes.delete(
   "/:id",
-  ensureExistsMiddleware(User, "Usuário"), // a validação fica com a tabela de usuario, porque o id que vem do parametro é o do usuário
+  ensureExistsMiddleware(Apoiador, "Apoiador"), // a validação fica com a tabela de usuario, porque o id que vem do parametro é o do usuário
   deleteApoiadorController
 ); // Deletar apoiador
 

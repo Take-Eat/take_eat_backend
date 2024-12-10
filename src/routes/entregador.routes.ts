@@ -70,7 +70,7 @@ entregadorRoutes.patch(
  */
 entregadorRoutes.delete(
   "/:id",
-  ensureExistsMiddleware(User, "Usuário"), // a validação fica com a tabela de usuario, porque o id que vem do parametro é o do usuário
+  ensureExistsMiddleware(Entregador, "Entregador"), // a validação fica com a tabela de usuario, porque o id que vem do parametro é o do usuário
   deleteEntregadorController
 );
 

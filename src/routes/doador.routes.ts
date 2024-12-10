@@ -66,7 +66,7 @@ doadorRoutes.patch(
  */
 doadorRoutes.delete(
   "/:id",
-  ensureExistsMiddleware(User, "Usuário"), // a validação fica com a tabela de usuario, porque o id que vem do parametro é o do usuário
+  ensureExistsMiddleware(Doador, "Doador"), // a validação fica com a tabela de usuario, porque o id que vem do parametro é o do usuário
   deleteDoadorController
 );
 
