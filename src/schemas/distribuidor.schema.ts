@@ -15,6 +15,7 @@ const distribuidorCreateWithoutIdUsuarioSchema =
   commonCreateWithoutIdUsuarioSchema.omit({
     id: true,
     createdAt: true,
+    deletedAt: true,
     updatedAt: true,
   });
 

@@ -58,7 +58,7 @@ const updateEntregadorService = async (
   }
 
   await Entregador.update(payload, {
-    where: { id },
+    where: { id, deletedAt: null },
   });
 
   return await getEntregadorIdService(id);

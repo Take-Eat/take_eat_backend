@@ -24,6 +24,7 @@ const apoiadorCreateWithoutIdUsuarioSchema = commonCreateWithoutIdUsuarioSchema
     id: true,
     createdAt: true,
     updatedAt: true,
+    deletedAt: true,
   });
 
 const apoiadorUpdateSchema = apoiadorCreateSchema.partial();

@@ -39,6 +39,7 @@ const getEntregadoresService = async (
   const retrivedEntregadores = await Entregador.findAll({
     offset,
     limit,
+    where: { deletedAt: null },
   });
 
   if (!retrivedEntregadores) {

@@ -22,6 +22,7 @@ const doadorCreateWithoutIdUsuarioSchema = commonCreateWithoutIdUsuarioSchema
   .omit({
     id: true,
     createdAt: true,
+    deletedAt: true,
     updatedAt: true,
   });
 
