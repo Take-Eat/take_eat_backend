@@ -6,6 +6,8 @@ import Apoiador from "./Apoiador";
 
 class Carteira extends Model<iCarteira, iCarteiraCreate> {
   declare id: number;
+  declare saldoEatCoin: number;
+  declare totalEatCoin: number;
   declare totalDoado: number;
   declare idApoiador: string;
 }
