@@ -50,6 +50,6 @@ Carteira.init(
 
 // Relações de um pra muitos
 Carteira.belongsTo(Apoiador, { onDelete: "cascade", foreignKey: "idApoiador" });
-Apoiador.hasMany(Carteira, { foreignKey: "idApoiador" });
+Apoiador.hasOne(Carteira, { foreignKey: "idApoiador" });
 
 export default Carteira;
