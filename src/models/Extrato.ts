@@ -7,7 +7,7 @@ import Apoiador from "./Apoiador";
 class Extrato extends Model<iExtrato, iExtratoCreate> {
   declare id: number;
   declare totalDoado: number;
-  declare idApoiador: string;
+  declare idApoiador: number;
 }
 
 Extrato.init(
