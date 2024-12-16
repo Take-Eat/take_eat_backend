@@ -9,7 +9,7 @@ class Carteira extends Model<iCarteira, iCarteiraCreate> {
   declare saldoEatCoin: number;
   declare totalEatCoin: number;
   declare totalDoado: number;
-  declare idApoiador: string;
+  declare idApoiador: number;
 }
 
 Carteira.init(
