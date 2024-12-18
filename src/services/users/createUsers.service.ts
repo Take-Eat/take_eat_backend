@@ -1,15 +1,14 @@
 import { AppError } from "../../errors";
-import { iApoiadorCreate } from "../../interfaces/apoiador.interface";
-import { iDistribuidorCreate } from "../../interfaces/distribuidor.interface";
-import { iDoadorCreate } from "../../interfaces/doador.interface";
-import { iEntregadorCreate } from "../../interfaces/entregador.interface";
 import { iUsersWithoutPass } from "../../interfaces/user.interface";
 import Apoiador from "../../models/Apoiador";
 import Distribuidor from "../../models/Distribuidor";
 import Doador from "../../models/Doador";
 import Entregador from "../../models/Entregador";
 import User from "../../models/User";
-import { apoiadorCreateWithoutIdUsuarioSchema } from "../../schemas/apoiador.schema";
+import {
+  apoiadorCreateWithoutIdUsuarioSchema,
+  apoiadorSchema,
+} from "../../schemas/apoiador.schema";
 import { distribuidorCreateWithoutIdUsuarioSchema } from "../../schemas/distribuidor.schema";
 import { doadorCreateWithoutIdUsuarioSchema } from "../../schemas/doador.schema";
 import { entregadorCreateWithoutIdUsuarioSchema } from "../../schemas/entregador.schema";
@@ -17,6 +16,7 @@ import {
   usersWithoutPassSchema,
   usersCreateSchema,
 } from "../../schemas/users.schema";
+import createCarteiraService from "../carteira/create.service";
 
 const createUser = async (payload: any) => {
   const parsedUser = usersCreateSchema.parse(payload);
@@ -76,10 +76,20 @@ const createApoiador = async (payload: any) => {
 
   const createdUserWithoutPass = await createUser(payload);
 
-  await Apoiador.create({
+  const createdApoiador = await Apoiador.create({
     ...parsedApoiador,
     idUsuario: createdUserWithoutPass.id,
   });
+
+  const parsedCreateApoiador = apoiadorSchema.parse(createApoiador);
+
+  await createCarteiraService({
+    totalDoado: 0,
+    totalEatCoin: 0,
+    idApoiador: parsedCreateApoiador.id,
+    saldoEatCoin: 0,
+  });
+
   return createdUserWithoutPass;
 };
 
