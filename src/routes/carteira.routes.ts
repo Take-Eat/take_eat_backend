@@ -4,7 +4,7 @@ import ensureTokenIsValidMiddleware from "../middlewares/ensureTokenIsValid.midd
 import { getCarteiraIdController } from "../controllers/carteira.controllers";
 import Carteira from "../models/Carteira";
 
-const CarteiraRoutes = Router();
+const carteiraRoutes = Router();
 
 /**
  * Rota para obter uma Carteira pelo seu ID.
@@ -14,11 +14,11 @@ const CarteiraRoutes = Router();
  * @middleware ensureTokenIsValidMiddleware - Valida o token de autenticação.
  * @controller getCarteiraIdController - Retorna a Carteira solicitada.
  */
-CarteiraRoutes.get(
+carteiraRoutes.get(
   "/:id",
   ensureExistsMiddleware(Carteira, "Carteira"),
   ensureTokenIsValidMiddleware,
   getCarteiraIdController
 );
 
-export default CarteiraRoutes;
+export default carteiraRoutes;

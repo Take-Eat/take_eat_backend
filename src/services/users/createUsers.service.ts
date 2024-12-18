@@ -81,7 +81,7 @@ const createApoiador = async (payload: any) => {
     idUsuario: createdUserWithoutPass.id,
   });
 
-  const parsedCreateApoiador = apoiadorSchema.parse(createApoiador);
+  const parsedCreateApoiador = apoiadorSchema.parse(createdApoiador);
 
   await createCarteiraService({
     totalDoado: 0,
