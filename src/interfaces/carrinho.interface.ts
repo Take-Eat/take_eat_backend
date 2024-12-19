@@ -6,8 +6,8 @@ import {
 } from "../schemas/carrinho.schema";
 
 type iCarrinho = z.infer<typeof carrinhoSchema>;
-type iCarrinhoProduto = z.infer<typeof carrinhoWithProdutoSchema>;
+type iCarrinhoWithProduto = z.infer<typeof carrinhoWithProdutoSchema>;
 type iCarrinhoCreate = z.infer<typeof carrinhoCreateSchema>;
 type iCarrinhoUpdate = Partial<Pick<iCarrinhoCreate, keyof iCarrinhoCreate>>;
 
-export { iCarrinho, iCarrinhoProduto, iCarrinhoCreate, iCarrinhoUpdate };
+export { iCarrinho, iCarrinhoWithProduto, iCarrinhoCreate, iCarrinhoUpdate };

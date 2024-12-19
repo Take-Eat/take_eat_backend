@@ -1,4 +1,7 @@
 import "express-async-errors";
+
+import "./models/_associations";
+
 import express, { Application, json } from "express";
 import path from "path";
 

@@ -3,10 +3,16 @@ import { DataTypes, Model } from "sequelize";
 import sequelize from "../db/connect";
 import { iCarrinho, iCarrinhoCreate } from "../interfaces/carrinho.interface";
 import Distribuidor from "./Distribuidor";
+import Produto from "./Produto";
+import { iProduto } from "../interfaces/produto.interface";
 
 class Carrinho extends Model<iCarrinho, iCarrinhoCreate> {
   declare id: number;
   declare idDistribuidor: number;
+
+  // Associação
+  public addProduto!: (produto: iProduto) => Promise<void>;
+  public removeProduto!: (produto: iProduto) => Promise<void>;
 }
 
 Carrinho.init(
