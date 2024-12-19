@@ -47,7 +47,9 @@ const updateEntregadorService = async (
     if (retrivedEntregadorCpf?.cpf) {
       throw new AppError("Esse cpf já está em uso!", 400);
     }
-
+  }
+  
+  if (payload.cnh) {
     const retrivedEntregadorCnh = await Entregador.findOne({
       where: { cnh: payload.cnh, id: { [Op.ne]: id } },
     });
