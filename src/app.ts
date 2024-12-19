@@ -12,6 +12,7 @@ import extratoRoutes from "./routes/extrato.routes";
 import doadorRoutes from "./routes/doador.routes";
 import entregadorRoutes from "./routes/entregador.routes";
 import distribuidorRoutes from "./routes/distribuidor.routes";
+import CarteiraRoutes from "./routes/carteira.routes";
 
 const app: Application = express();
 app.use(json());
@@ -27,10 +28,11 @@ app.use("/login", loginRoutes);
 app.use("/users", userRoutes);
 app.use("/apoiador", apoidorRoutes);
 app.use("/doador", doadorRoutes);
-app.use("/entregador", entregadorRoutes)
-app.use("/distribuidor", distribuidorRoutes)
+app.use("/entregador", entregadorRoutes);
+app.use("/distribuidor", distribuidorRoutes);
 app.use("/produto", produtoRoutes);
 app.use("/extrato", extratoRoutes);
+app.use("/carteira", CarteiraRoutes);
 
 // não colocar coisas a baixo desse "use"
 app.use(handleError);
