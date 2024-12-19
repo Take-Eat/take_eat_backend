@@ -16,9 +16,9 @@ const verificarValidadeDeSaque = async (payload: iExtratoCreate) => {
 };
 
 const calcularValoresDaCarteira = async (payload: iExtrato) => {
-  const retrivedCarteira = await Carteira.findOne({
-    where: { idApoiador: payload.idApoiador },
-  });
+  const retrivedCarteira = await getCarteiraIdApoiadorService(
+    payload.idApoiador
+  );
 
   if (!retrivedCarteira) {
     throw new AppError(
