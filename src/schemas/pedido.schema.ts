@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { produtoSchema } from "./produto.schema";
 
 const pedidoSchema = z.object({
   id: z.number(),
@@ -6,6 +7,10 @@ const pedidoSchema = z.object({
   idDistribuidor: z.number(),
   createdAt: z.date(),
   updatedAt: z.date(),
+});
+
+const pedidoWithProdutoSchema = pedidoSchema.extend({
+  produtos: produtoSchema.array(),
 });
 
 const pedidoCreateSchema = pedidoSchema.omit({
@@ -16,4 +21,9 @@ const pedidoCreateSchema = pedidoSchema.omit({
 
 const pedidoUpdateSchema = pedidoCreateSchema.partial();
 
-export { pedidoSchema, pedidoCreateSchema, pedidoUpdateSchema };
+export {
+  pedidoSchema,
+  pedidoWithProdutoSchema,
+  pedidoCreateSchema,
+  pedidoUpdateSchema,
+};
