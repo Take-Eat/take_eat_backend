@@ -9,13 +9,17 @@ import {
   apoiadorCreateWithoutIdUsuarioSchema,
   apoiadorSchema,
 } from "../../schemas/apoiador.schema";
-import { distribuidorCreateWithoutIdUsuarioSchema } from "../../schemas/distribuidor.schema";
+import {
+  distribuidorCreateWithoutIdUsuarioSchema,
+  distribuidorSchema,
+} from "../../schemas/distribuidor.schema";
 import { doadorCreateWithoutIdUsuarioSchema } from "../../schemas/doador.schema";
 import { entregadorCreateWithoutIdUsuarioSchema } from "../../schemas/entregador.schema";
 import {
   usersWithoutPassSchema,
   usersCreateSchema,
 } from "../../schemas/users.schema";
+import createCarrinhoService from "../carrinho/create.service";
 import createCarteiraService from "../carteira/create.service";
 
 const createUser = async (payload: any) => {
@@ -51,10 +55,16 @@ const createDistribuidor = async (payload: any) => {
 
   const createdUserWithoutPass = await createUser(payload);
 
-  await Distribuidor.create({
+  const createdDistribuidor = await Distribuidor.create({
     ...parsedDistribuidor,
     idUsuario: createdUserWithoutPass.id,
   });
+
+  const parsedCreateDistribuidor =
+    distribuidorSchema.parse(createdDistribuidor);
+
+  createCarrinhoService({ idDistribuidor: parsedCreateDistribuidor.id });
+
   return createdUserWithoutPass;
 };
 
