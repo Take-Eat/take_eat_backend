@@ -6,19 +6,25 @@ import Apoiador from "./Apoiador";
 
 class Extrato extends Model<iExtrato, iExtratoCreate> {
   declare id: number;
-  declare totalDoado: number;
+  declare value: number;
+  declare type: string;
   declare idApoiador: number;
 }
 
 Extrato.init(
   {
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-    totalDoado: {
+    value: {
       type: DataTypes.FLOAT,
       allowNull: false,
       validate: {
         isNumeric: true,
       },
+    },
+    type: {
+      type: DataTypes.ENUM,
+      values: ["doacao", "compraEatCoin", "saqueEatCoin"],
+      allowNull: false,
     },
     idApoiador: {
       type: DataTypes.INTEGER,

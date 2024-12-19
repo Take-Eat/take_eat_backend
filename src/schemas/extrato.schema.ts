@@ -2,8 +2,9 @@ import { z } from "zod";
 
 const extratoSchema = z.object({
   id: z.number(),
-  totalDoado: z.number(),
+  value: z.number(),
   idApoiador: z.number(),
+  type: z.enum(["doacao", "compraEatCoin", "saqueEatCoin"]),
   createdAt: z.date(),
   updatedAt: z.date(),
 });
