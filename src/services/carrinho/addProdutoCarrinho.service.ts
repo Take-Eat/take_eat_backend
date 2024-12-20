@@ -1,7 +1,6 @@
 import { AppError } from "../../errors";
 import { iCarrinhoWithProduto } from "../../interfaces/carrinho.interface";
 import Carrinho from "../../models/Carrinho";
-import Produto from "../../models/Produto";
 import { carrinhoWithProdutoSchema } from "../../schemas/carrinho.schema";
 import getProdutoIdService from "../produto/getProduto.service";
 import getCarrinhoProdutoIdService from "./getCarrinhoProduto.service";
@@ -41,22 +40,30 @@ import getCarrinhoProdutoIdService from "./getCarrinhoProduto.service";
 
 const AddProdutoCarrinhoIdService = async (
   idCarrinho: number,
-  idProduto: number
+  idProduto: number,
+  quantidade: number // Novo parâmetro
 ): Promise<iCarrinhoWithProduto> => {
-  const retrivedCarrinho = await Carrinho.findOne({
-      where: { id: idCarrinho },
-    }),
-    retrivedProduto = await getProdutoIdService(idProduto);
+  const retrievedCarrinho = await Carrinho.findOne({
+    where: { id: idCarrinho },
+  });
+  const retrievedProduto = await getProdutoIdService(idProduto);
 
-  if (!retrivedCarrinho) {
+  if (!retrievedCarrinho) {
     throw new AppError("Não foi possível encontrar o Carrinho!", 404);
   }
 
-  if (!retrivedProduto) {
+  if (!retrievedProduto) {
     throw new AppError("Não foi possível encontrar o Produto!", 404);
   }
 
-  retrivedCarrinho.addProduto(retrivedProduto);
+  // Adicionando o produto ao carrinho com a quantidade
+  retrievedCarrinho.addProduto({ ...retrievedProduto, quantidade });
+
+  // await CarrinhoProduto.create({
+  //   idCarrinho,
+  //   idProduto,
+  //   quantidade, // Salva a quantidade no pivô
+  // });
 
   const carrinhoWithNewProduto = await getCarrinhoProdutoIdService(idCarrinho);
 
