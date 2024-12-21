@@ -16,6 +16,7 @@ import doadorRoutes from "./routes/doador.routes";
 import entregadorRoutes from "./routes/entregador.routes";
 import distribuidorRoutes from "./routes/distribuidor.routes";
 import CarteiraRoutes from "./routes/carteira.routes";
+import carrinhoRoutes from "./routes/carrinho.routes";
 
 const app: Application = express();
 app.use(json());
@@ -36,6 +37,7 @@ app.use("/distribuidor", distribuidorRoutes);
 app.use("/produto", produtoRoutes);
 app.use("/extrato", extratoRoutes);
 app.use("/carteira", CarteiraRoutes);
+app.use("/carrinho", carrinhoRoutes);
 
 // não colocar coisas a baixo desse "use"
 app.use(handleError);

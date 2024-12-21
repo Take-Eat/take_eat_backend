@@ -14,7 +14,7 @@ import getCarrinhoProdutoIdService from "./getCarrinhoProduto.service";
  *
  * @async
  * @function updateCarrinhoService
- * @param {iCarrinhoUpdate} payload - Os dados necessários para criar o Carrinho.
+ * @param {iCarrinhoUpdate} payload - Os dados necessários para atualizar o Carrinho.
  * @param {number} id - Identificação do Carrinho atualizar seus dados.
  * @throws {AppError} Caso a atualização do Carrinho falhe.
  * @returns {Promise<iCarrinho>} O Carrinho atualizado e validado.

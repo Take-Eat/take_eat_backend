@@ -1,13 +1,13 @@
 import { Request, Response } from "express";
 import getCarrinhoIdService from "../services/carrinho/getCarrinhoProduto.service";
-import createCarrinhoService from "../services/carrinho/create.service";
-import { iCarrinhoUpdate } from "../interfaces/carrinho.interface";
 import updateCarrinhoService from "../services/carrinho/update.service";
 import {
   iCarrinhoProdutoAdd,
+  iCarrinhoProdutoRemove,
   iCarrinhoProdutoUpdate,
 } from "../interfaces/carrinhoProduto.interface";
 import AddProdutoCarrinhoIdService from "../services/carrinho/addProdutoCarrinho.service";
+import removeProdutoCarrinhoIdService from "../services/carrinho/removeProdutoCarrinho.service";
 
 /**
  * Obtém um Carrinho pelo seu ID.
@@ -135,8 +135,20 @@ const updateCarrinhoController = async (
   return res.status(200).json(updatedCarrinho);
 };
 
+const removeProdutoCarrinhoController = async (
+  req: Request,
+  res: Response
+): Promise<any> => {
+  const payload: iCarrinhoProdutoRemove = req.body;
+
+  const updatedCarrinho = await removeProdutoCarrinhoIdService(payload);
+
+  return res.status(200).json(updatedCarrinho);
+};
+
 export {
   getCarrinhoIdController,
   addProdutoCarrinhoController,
   updateCarrinhoController,
+  removeProdutoCarrinhoController,
 };

@@ -1,4 +1,5 @@
 import { AppError } from "../../errors";
+import { iCarrinhoProdutoRemove } from "../../interfaces/carrinhoProduto.interface";
 import Carrinho from "../../models/Carrinho";
 import getProdutoIdService from "../produto/getProduto.service";
 
@@ -18,13 +19,12 @@ import getProdutoIdService from "../produto/getProduto.service";
  */
 
 const removeProdutoCarrinhoIdService = async (
-  idCarrinho: number,
-  idProduto: number
+  payload: iCarrinhoProdutoRemove
 ): Promise<void> => {
   const retrivedCarrinho = await Carrinho.findOne({
-      where: { id: idCarrinho },
+      where: { id: payload.idCarrinho },
     }),
-    retrivedProduto = await getProdutoIdService(idProduto);
+    retrivedProduto = await getProdutoIdService(payload.idProduto);
 
   if (!retrivedCarrinho) {
     throw new AppError("Não foi possível encontrar o Carrinho!", 404);
