@@ -4,7 +4,9 @@ import {
   iCarrinho,
   iCarrinhoUpdate,
 } from "../../interfaces/carrinho.interface";
+import { iCarrinhoProduto, iCarrinhoProdutoUpdate } from "../../interfaces/carrinhoProduto.interface";
 import Carrinho from "../../models/Carrinho";
+import CarrinhoProduto from "../../models/CarrinhoProduto";
 import { carrinhoSchema } from "../../schemas/carrinho.schema";
 
 /**
@@ -35,9 +37,9 @@ import { carrinhoSchema } from "../../schemas/carrinho.schema";
  */
 const updateCarrinhoService = async (
   id: number,
-  payload: iCarrinhoUpdate
+  payload: iCarrinhoProdutoUpdate
 ): Promise<iCarrinho> => {
-  const updatedCarrinho = await Carrinho.update(payload, { where: { id } });
+  const updatedCarrinho = await CarrinhoProduto.update(payload, { where: {  } });
 
   if (!updatedCarrinho) {
     throw new AppError("Não foi possível atualizar o Carrinho", 409);
