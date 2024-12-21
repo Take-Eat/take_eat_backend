@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { number, z } from "zod";
 
 const carrinhoProdutoSchema = z.object({
   id: z.number(),
@@ -13,4 +13,13 @@ const carrinhoProdutoCreateSchema = carrinhoProdutoSchema.omit({
   updatedAt: true,
 });
 
-export { carrinhoProdutoSchema, carrinhoProdutoCreateSchema };
+const addProdutoCarrinhoSchema = carrinhoProdutoCreateSchema.extend({
+  idCarrinho: z.number(),
+  idProduto: z.number(),
+});
+
+export {
+  carrinhoProdutoSchema,
+  carrinhoProdutoCreateSchema,
+  addProdutoCarrinhoSchema,
+};

@@ -1,5 +1,6 @@
 import { AppError } from "../../errors";
 import { iCarrinhoWithProduto } from "../../interfaces/carrinho.interface";
+import { iCarrinhoProdutoAdd } from "../../interfaces/carrinhoProduto.interface";
 import Carrinho from "../../models/Carrinho";
 import { carrinhoWithProdutoSchema } from "../../schemas/carrinho.schema";
 import getProdutoIdService from "../produto/getProduto.service";
@@ -10,8 +11,7 @@ import getCarrinhoProdutoIdService from "./getCarrinhoProduto.service";
  \*
   * @async
   * @function AddProdutoCarrinhoIdService
-  * @param {number} idCarrinho - Identificação do carrinho para adicionar o produto.
-  * @param {number} idProduto - Identificação do Produto a ser adicionado.
+  * @param {iCarrinhoProdutoAdd} payload - Dados para adicionar o produto no carrinho.
   * @throws {AppError} Caso não seja encontrado o carrinho ou o produto.
   * @returns {Promise<iCarrinhoWithProduto>} O Carrinho com os seus produtos validado.
  \*
@@ -39,14 +39,12 @@ import getCarrinhoProdutoIdService from "./getCarrinhoProduto.service";
  */
 
 const AddProdutoCarrinhoIdService = async (
-  idCarrinho: number,
-  idProduto: number,
-  quantidade: number // Novo parâmetro
+  payload: iCarrinhoProdutoAdd
 ): Promise<iCarrinhoWithProduto> => {
   const retrievedCarrinho = await Carrinho.findOne({
-    where: { id: idCarrinho },
+    where: { id: payload.idCarrinho },
   });
-  const retrievedProduto = await getProdutoIdService(idProduto);
+  const retrievedProduto = await getProdutoIdService(payload.idProduto);
 
   if (!retrievedCarrinho) {
     throw new AppError("Não foi possível encontrar o Carrinho!", 404);
@@ -57,7 +55,10 @@ const AddProdutoCarrinhoIdService = async (
   }
 
   // Adicionando o produto ao carrinho com a quantidade
-  retrievedCarrinho.addProduto({ ...retrievedProduto, quantidade });
+  retrievedCarrinho.addProduto({
+    ...retrievedProduto,
+    quantidade: payload.quantidade,
+  });
 
   // await CarrinhoProduto.create({
   //   idCarrinho,
@@ -65,7 +66,9 @@ const AddProdutoCarrinhoIdService = async (
   //   quantidade, // Salva a quantidade no pivô
   // });
 
-  const carrinhoWithNewProduto = await getCarrinhoProdutoIdService(idCarrinho);
+  const carrinhoWithNewProduto = await getCarrinhoProdutoIdService(
+    payload.idCarrinho
+  );
 
   return carrinhoWithProdutoSchema.parse(carrinhoWithNewProduto);
 };

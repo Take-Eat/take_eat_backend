@@ -2,12 +2,12 @@ import { AppError } from "../../errors";
 
 import {
   iCarrinho,
-  iCarrinhoUpdate,
+  iCarrinhoWithProduto,
 } from "../../interfaces/carrinho.interface";
-import { iCarrinhoProduto, iCarrinhoProdutoUpdate } from "../../interfaces/carrinhoProduto.interface";
-import Carrinho from "../../models/Carrinho";
+import { iCarrinhoProdutoUpdate } from "../../interfaces/carrinhoProduto.interface";
 import CarrinhoProduto from "../../models/CarrinhoProduto";
-import { carrinhoSchema } from "../../schemas/carrinho.schema";
+import { carrinhoWithProdutoSchema } from "../../schemas/carrinho.schema";
+import getCarrinhoProdutoIdService from "./getCarrinhoProduto.service";
 
 /**
  * Serviço para atualizar um Carrinho.
@@ -38,17 +38,16 @@ import { carrinhoSchema } from "../../schemas/carrinho.schema";
 const updateCarrinhoService = async (
   id: number,
   payload: iCarrinhoProdutoUpdate
-): Promise<iCarrinho> => {
-  const updatedCarrinho = await CarrinhoProduto.update(payload, { where: {  } });
+): Promise<iCarrinhoWithProduto> => {
+  const updatedCarrinho = await CarrinhoProduto.update(payload, {
+    where: { id },
+  });
 
   if (!updatedCarrinho) {
     throw new AppError("Não foi possível atualizar o Carrinho", 409);
   }
 
-  const retrivedCarrinho = await Carrinho.findOne({ where: { id } });
-
-  const parsedCarrinho = carrinhoSchema.parse(retrivedCarrinho);
-  return parsedCarrinho;
+  return await getCarrinhoProdutoIdService(id);
 };
 
 export default updateCarrinhoService;

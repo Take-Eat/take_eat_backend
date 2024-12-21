@@ -3,6 +3,11 @@ import getCarrinhoIdService from "../services/carrinho/getCarrinhoProduto.servic
 import createCarrinhoService from "../services/carrinho/create.service";
 import { iCarrinhoUpdate } from "../interfaces/carrinho.interface";
 import updateCarrinhoService from "../services/carrinho/update.service";
+import {
+  iCarrinhoProdutoAdd,
+  iCarrinhoProdutoUpdate,
+} from "../interfaces/carrinhoProduto.interface";
+import AddProdutoCarrinhoIdService from "../services/carrinho/addProdutoCarrinho.service";
 
 /**
  * Obtém um Carrinho pelo seu ID.
@@ -12,17 +17,26 @@ import updateCarrinhoService from "../services/carrinho/update.service";
  * @param {Request} req - Objeto de requisição do Express.
  * @param {Response} res - Objeto de resposta do Express.
  * @returns {Promise<Response>} 200 - Carrinho encontrado.
- * @throws {404} - Caso o Carrinho não seja encontrado.
+ * @throws {404} - Caso o Carrinho não seja encontrado com sua lista de produtos.
  *
  * @example
- * // GET /Carrinho/1
+ * // GET /carrinho/1
  * // Response:
  * {
- *   "id": 1,
- *   "totalDoado": 100.50,
- *   "idApoiador": 2,
- *   "createdAt": "2023-12-01T10:00:00.000Z",
- *   "updatedAt": "2023-12-02T10:00:00.000Z"
+ *  id: number;
+ *  idDistribuidor: number;
+ *  createdAt: Date;
+ *  updatedAt: Date;
+ *  produtos: {
+        id: number;
+        createdAt: Date;
+        updatedAt: Date;
+        name: string;
+        tipo: string;
+        quantidade: number;
+        tempoDisponivel: string;
+        idDoador: number;
+    }[];
  * }
  */
 const getCarrinhoIdController = async (
@@ -36,45 +50,55 @@ const getCarrinhoIdController = async (
 };
 
 /**
- * Cria um novo Carrinho para um apoiador.
+ * Adiciona um produto no Carrinho.
  *
  * @async
- * @function createCarrinhoController
+ * @function addProdutoCarrinhoController
  * @param {Request} req - Objeto de requisição do Express contendo o payload.
  * @param {Response} res - Objeto de resposta do Express.
- * @returns {Promise<Response>} 201 - Carrinho criado com sucesso.
- * @throws {409} - Caso o Carrinho não seja criado.
+ * @returns {Promise<Response>} 201 - Produto adicionado no carrinho com sucesso.
+ * @throws {409} - Caso o produto não seja adicionado no carrinho.
  *
  *
  * @example
- * // POST /Carrinho
+ * // POST /carrinho
  * // Body:
  * {
- *   "totalDoado": 150.00,
- *   "idApoiador": 3
+ *  quantidade: number;
+ *  idCarrinho: number;
+ *  idProduto: number;
  * }
  * // Response:
  * {
- *   "id": 10,
- *   "totalDoado": 150.00,
- *   "idApoiador": 3,
- *   "createdAt": "2023-12-01T12:00:00.000Z",
- *   "updatedAt": "2023-12-01T12:00:00.000Z"
+ *  id: number;
+ *  idDistribuidor: number;
+ *  createdAt: Date;
+ *  updatedAt: Date;
+ *  produtos: {
+        id: number;
+        createdAt: Date;
+        updatedAt: Date;
+        name: string;
+        tipo: string;
+        quantidade: number;
+        tempoDisponivel: string;
+        idDoador: number;
+    }[];
  * }
  */
-const createCarrinhoController = async (
+const addProdutoCarrinhoController = async (
   req: Request,
   res: Response
 ): Promise<any> => {
-  const payload = req.body;
+  const payload: iCarrinhoProdutoAdd = req.body;
 
-  const createdCarrinho = await createCarrinhoService(payload);
+  const produtoAddCarrinho = await AddProdutoCarrinhoIdService(payload);
 
-  return res.status(201).json(createdCarrinho);
+  return res.status(201).json(produtoAddCarrinho);
 };
 
 /**
- * Atualiza um Carrinho pelo seu ID.
+ * Atualiza um Carrinho pelo seu ID. Esse controller será utilizado para vazer o controle de quantidade do produto que está no carrinho.
  *
  * @async
  * @function updateCarrinhoController
@@ -84,11 +108,10 @@ const createCarrinhoController = async (
  * @throws {409} - Caso o Carrinho não seja atualizado.
  *
  * @example
- * // PATCH /Carrinho/10
+ * // PATCH /carrinho/10
  * // Body:
  * {
- *   "id": 10,
- *   "totalDoado": 155.00
+  quantidade?: number;
  * }
  * // Response:
  * {
@@ -104,7 +127,7 @@ const updateCarrinhoController = async (
   req: Request,
   res: Response
 ): Promise<any> => {
-  const payload: iCarrinhoUpdate = req.body,
+  const payload: iCarrinhoProdutoUpdate = req.body,
     id = Number(req.params.id);
 
   const updatedCarrinho = await updateCarrinhoService(id, payload);
@@ -114,6 +137,6 @@ const updateCarrinhoController = async (
 
 export {
   getCarrinhoIdController,
-  createCarrinhoController,
+  addProdutoCarrinhoController,
   updateCarrinhoController,
 };
