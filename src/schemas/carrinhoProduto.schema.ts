@@ -14,8 +14,8 @@ const carrinhoProdutoCreateSchema = carrinhoProdutoSchema.omit({
   id: true,
   createdAt: true,
   updatedAt: true,
-  idCarrinho: true,
-  idProduto: true,
+  // idCarrinho: true,
+  // idProduto: true,
 });
 
 const carrinhoProdutoAddSchema = carrinhoProdutoSchema.omit({

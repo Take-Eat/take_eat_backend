@@ -1,6 +1,7 @@
 import { AppError } from "../../errors";
 import { iCarrinhoWithProduto } from "../../interfaces/carrinho.interface";
 import Carrinho from "../../models/Carrinho";
+import CarrinhoProduto from "../../models/CarrinhoProduto";
 import Produto from "../../models/Produto";
 import { carrinhoWithProdutoSchema } from "../../schemas/carrinho.schema";
 
@@ -41,7 +42,18 @@ const getCarrinhoProdutoIdService = async (
 ): Promise<iCarrinhoWithProduto> => {
   const retrivedCarrinho = await Carrinho.findOne({
     where: { id },
-    include: [{ model: Produto }],
+    include: [
+      {
+        model: CarrinhoProduto,
+        as: "produtos", // Nome do alias, se usado em `hasMany`
+        include: [
+          {
+            model: Produto,
+            as: "produto", // Nome do alias, se usado em `belongsTo`
+          },
+        ],
+      },
+    ],
   });
 
   if (!retrivedCarrinho) {

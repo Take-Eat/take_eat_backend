@@ -2,6 +2,7 @@ import { AppError } from "../../errors";
 import { iCarrinhoWithProduto } from "../../interfaces/carrinho.interface";
 import { iCarrinhoProdutoAdd } from "../../interfaces/carrinhoProduto.interface";
 import Carrinho from "../../models/Carrinho";
+import CarrinhoProduto from "../../models/CarrinhoProduto";
 import { carrinhoWithProdutoSchema } from "../../schemas/carrinho.schema";
 import getProdutoIdService from "../produto/getProduto.service";
 import getCarrinhoProdutoIdService from "./getCarrinhoProduto.service";
@@ -54,23 +55,43 @@ const AddProdutoCarrinhoIdService = async (
     throw new AppError("Não foi possível encontrar o Produto!", 404);
   }
 
-  // Adicionando o produto ao carrinho com a quantidade
-  retrievedCarrinho.addProduto({
-    ...retrievedProduto,
-    quantidade: payload.quantidade,
+  // Verifica se a quantidade desejada é maior que a disponível no estoque do produto
+  if (payload.quantidade > retrievedProduto.quantidade) {
+    throw new AppError(
+      `A quantidade solicitada (${payload.quantidade}) excede a quantidade disponível (${retrievedProduto.quantidade}) do produto.`,
+      400
+    );
+  }
+
+  const carrinhoProdutoExistente = await CarrinhoProduto.findOne({
+    where: { idCarrinho: payload.idCarrinho, idProduto: payload.idProduto },
   });
 
-  // await CarrinhoProduto.create({
-  //   idCarrinho,
-  //   idProduto,
-  //   quantidade, // Salva a quantidade no pivô
-  // });
+  if (carrinhoProdutoExistente) {
+    // Atualiza a quantidade se já existir
+    carrinhoProdutoExistente.quantidade = payload.quantidade;
+    await carrinhoProdutoExistente.save();
+  } else {
+    // Adicionando o produto ao carrinho com a quantidade
+    // retrievedCarrinho.addProduto({
+    //   ...retrievedProduto,
+    //   quantidade: payload.quantidade,
+    // });
+  }
+
+  await CarrinhoProduto.create({
+    idCarrinho: payload.idCarrinho,
+    idProduto: payload.idProduto,
+    quantidade: payload.quantidade, // Salva a quantidade no pivô
+  });
 
   const carrinhoWithNewProduto = await getCarrinhoProdutoIdService(
     payload.idCarrinho
   );
 
-  return carrinhoWithProdutoSchema.parse(carrinhoWithNewProduto);
+  console.log(carrinhoWithNewProduto);
+
+  return carrinhoWithNewProduto;
 };
 
 export default AddProdutoCarrinhoIdService;

@@ -4,11 +4,11 @@ import Carrinho from "./Carrinho";
 import ProdutoPedido from "./produtoPedido";
 import Pedido from "./Pedido";
 
-Carrinho.hasMany(CarrinhoProduto, { foreignKey: "idCarrinho" });
+Carrinho.hasMany(CarrinhoProduto, { foreignKey: "idCarrinho", as: "produtos" });
 CarrinhoProduto.belongsTo(Carrinho, { foreignKey: "idCarrinho" });
 
 Produto.hasMany(CarrinhoProduto, { foreignKey: "idProduto" });
-CarrinhoProduto.belongsTo(Produto, { foreignKey: "idProduto" });
+CarrinhoProduto.belongsTo(Produto, { foreignKey: "idProduto", as: "produto" });
 
 Produto.hasMany(ProdutoPedido, { foreignKey: "idProduto" });
 ProdutoPedido.belongsTo(Produto, { foreignKey: "idProduto" });

@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { array, z } from "zod";
 import { produtoSchema } from "./produto.schema";
 
 const carrinhoSchema = z.object({
@@ -9,7 +9,7 @@ const carrinhoSchema = z.object({
 });
 
 const carrinhoWithProdutoSchema = carrinhoSchema.extend({
-  produtos: produtoSchema.array(),
+  produtos: array(produtoSchema),
 });
 
 const carrinhoCreateSchema = carrinhoSchema.omit({
