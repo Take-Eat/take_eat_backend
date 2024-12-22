@@ -8,8 +8,20 @@ const carrinhoSchema = z.object({
   updatedAt: z.date(),
 });
 
+// Define o schema para a associação entre Carrinho e Produto
+const carrinhoProdutoSchema = z.object({
+  id: z.number(),
+  quantidade: z.number(),
+  idCarrinho: z.number(),
+  idProduto: z.number(),
+  createdAt: z.date(),
+  updatedAt: z.date(),
+  produto: produtoSchema, // Associa o schema do produto
+});
+
+// Extende o schema do carrinho para incluir os produtos
 const carrinhoWithProdutoSchema = carrinhoSchema.extend({
-  produtos: array(produtoSchema),
+  produtos: array(carrinhoProdutoSchema), // Adiciona o schema de produtos ao carrinho
 });
 
 const carrinhoCreateSchema = carrinhoSchema.omit({

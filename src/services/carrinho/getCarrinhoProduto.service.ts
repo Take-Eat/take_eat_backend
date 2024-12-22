@@ -45,11 +45,11 @@ const getCarrinhoProdutoIdService = async (
     include: [
       {
         model: CarrinhoProduto,
-        as: "produtos", // Nome do alias, se usado em `hasMany`
+        as: "produtos",
         include: [
           {
             model: Produto,
-            as: "produto", // Nome do alias, se usado em `belongsTo`
+            as: "produto",
           },
         ],
       },
@@ -61,6 +61,7 @@ const getCarrinhoProdutoIdService = async (
   }
 
   return carrinhoWithProdutoSchema.parse(retrivedCarrinho);
+  // return retrivedCarrinho;
 };
 
 export default getCarrinhoProdutoIdService;
