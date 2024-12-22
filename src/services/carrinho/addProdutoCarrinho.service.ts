@@ -77,19 +77,19 @@ const AddProdutoCarrinhoIdService = async (
     //   ...retrievedProduto,
     //   quantidade: payload.quantidade,
     // });
+    
+    await CarrinhoProduto.create({
+      idCarrinho: payload.idCarrinho,
+      idProduto: payload.idProduto,
+      quantidade: payload.quantidade, // Salva a quantidade no pivô
+    });
   }
-
-  await CarrinhoProduto.create({
-    idCarrinho: payload.idCarrinho,
-    idProduto: payload.idProduto,
-    quantidade: payload.quantidade, // Salva a quantidade no pivô
-  });
 
   const carrinhoWithNewProduto = await getCarrinhoProdutoIdService(
     payload.idCarrinho
   );
 
-  console.log(carrinhoWithNewProduto);
+  // console.log(carrinhoWithNewProduto);
 
   return carrinhoWithNewProduto;
 };
